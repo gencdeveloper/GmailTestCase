@@ -19,7 +19,18 @@ public class Gmail {
     @BeforeMethod
     public void setUP(){
         driver = WebDriverFactory.getDriver("chrome");
-        //driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.get("https://mail.google.com/mail/u/6/#inbox");
+        
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        
+        driver.findElement(By.id("identifierId")).sendKeys("testfortestcase@gmail.com", Keys.ENTER);
+        
+        WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
+        
+        WebDriverWait wait = new WebDriverWait(driver,20);
+        wait.until(ExpectedConditions.elementToBeClickable(password));
+        
+        password.sendKeys("159357.Emre",Keys.ENTER);
     }
 
     @AfterMethod
@@ -30,19 +41,7 @@ public class Gmail {
 
     @Test
     public void mailSend(){
-        driver.get("https://mail.google.com/mail/u/6/#inbox");
-
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-
-        driver.findElement(By.id("identifierId")).sendKeys("testfortestcase@gmail.com", Keys.ENTER);
-
-        WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-
-        WebDriverWait wait = new WebDriverWait(driver,20);
-
-        wait.until(ExpectedConditions.elementToBeClickable(password));
-
-        password.sendKeys("159357.Emre",Keys.ENTER);
+       
 
         //click compose
         driver.findElement(By.cssSelector(".T-I.T-I-KE.L3")).click();
