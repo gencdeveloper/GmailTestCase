@@ -1,5 +1,3 @@
-package com.cybertek.HomeWork;
-
 import com.cybertek.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
