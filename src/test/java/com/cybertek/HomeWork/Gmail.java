@@ -1,8 +1,11 @@
+package com.cybertek.HomeWork;
+
 import com.cybertek.utilities.WebDriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
@@ -18,16 +21,17 @@ public class Gmail {
     public void setUP(){
         driver = WebDriverFactory.getDriver("chrome");
         driver.get("https://mail.google.com/mail/u/6/#inbox");
-        
+
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        
+
         driver.findElement(By.id("identifierId")).sendKeys("testfortestcase@gmail.com", Keys.ENTER);
-        
+
         WebElement password = driver.findElement(By.xpath("//input[@name='password']"));
-        
+
         WebDriverWait wait = new WebDriverWait(driver,20);
+
         wait.until(ExpectedConditions.elementToBeClickable(password));
-        
+
         password.sendKeys("159357.Emre",Keys.ENTER);
     }
 
@@ -39,11 +43,9 @@ public class Gmail {
 
     @Test
     public void mailSend(){
-       
 
         //click compose
         driver.findElement(By.cssSelector(".T-I.T-I-KE.L3")).click();
-
         //type to receiver
         driver.findElement(By.className("vO")).sendKeys("yunusozudogru34@gmail.com");
         //type to subject
@@ -52,6 +54,42 @@ public class Gmail {
         driver.findElement(By.className("Am")).sendKeys("This is my first Automation Mail");
         //Send to mail
         driver.findElement(By.className("aoO")).click();
+
+    }
+
+    @Test
+    public void sidebarMenu() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElement(By.linkText("Inbox")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.linkText("Starred")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.linkText("Snoozed")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.linkText("Sent")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.linkText("Drafts")).click();
+
+    }
+
+    @Test
+    public void InboxPanel_Primary() throws InterruptedException {
+        Thread.sleep(2000);
+
+        driver.findElement(By.linkText("Starred")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.linkText("Inbox")).click();
+
+        Thread.sleep(2000);
+       driver.findElement(By.xpath("//div[@*='Primary']")).click();
+
+        //checkbox
+        WebElement check = driver.findElement(By.xpath("//div[@id=':2m']"));
+        check.click();
+
+        //Start
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//span[@id=':2n']")).click();
 
 
     }
